@@ -1,5 +1,7 @@
 {
   "name": "hush-private-image-messages",
+  "version": "1.0.0",
+  "description": "Client-side encrypted emoji and image messages by AQERIONX",
   "private": true,
   "type": "module",
   "scripts": {
@@ -7,3 +9,4 @@
     "test": "node --test"
   }
 }
+

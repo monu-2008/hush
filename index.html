@@ -98,7 +98,7 @@
             </div>
             <div class="image-picker hidden" id="image-picker"><input id="carrier-file" type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden /><button class="mini-drop" id="carrier-drop" type="button"><span class="mini-upload">↑</span><span id="carrier-name">Choose an image or drop it here</span><span class="browse-link">Browse</span></button><div class="field-hint">PNG, JPG, WebP or GIF · up to 20 MB. First frame is used.</div></div>
 
-            <div class="mode-note" id="emoji-mode-note"><span class="mode-note-icon">✳</span><span><strong>Looks like one normal emoji.</strong> Copy it into your chat; the encrypted data travels as invisible text characters.</span></div>
+            <div class="mode-note" id="emoji-mode-note"><span class="mode-note-icon">✳</span><span><strong>Looks like one normal emoji.</strong> Copy it into your chat; the encrypted data rides along as invisible emoji-variation characters that survive Instagram, WhatsApp and most modern chat apps.</span></div>
             <button class="primary-button" id="encode-button" type="button"><span>Encrypt &amp; make emoji</span><span class="button-arrow">↗</span></button>
             <div class="status" id="encode-status" role="status" aria-live="polite"></div>
           </div>
@@ -106,7 +106,7 @@
           <aside class="preview-column">
             <div class="preview-heading"><div><span class="section-kicker">YOUR CONTAINER</span><h2>A little something<br />to pass along.</h2></div><span class="preview-sparkle">✳</span></div>
             <div class="preview-card" id="preview-card"><div class="preview-glow"></div><div class="preview-art" id="preview-art">😊</div><div class="preview-file hidden" id="preview-file"><div class="file-thumb">▧</div><div><strong id="preview-filename">your-image.png</strong><small>Ready to wrap</small></div><span class="file-check">✓</span></div><span class="preview-caption" id="preview-caption">Looks like a regular emoji.</span></div>
-            <div class="output-card hidden" id="output-card"><div class="output-top"><span class="output-check">✓</span><span><strong>Your secret emoji is ready</strong><small>Encrypted on this device</small></span></div><button class="secondary-button emoji-copy" id="emoji-copy-button" type="button">▢ Copy emoji for chat</button><div class="output-actions"><button class="secondary-button" id="download-button" type="button">↓ Download PNG</button><button class="icon-button" id="copy-button" type="button" aria-label="Copy image" title="Copy image">▢</button></div><div class="field-hint copy-warning" id="copy-warning">Some chat apps may remove invisible characters. Send the PNG as a file if that happens.</div><button class="text-button" id="reset-encode" type="button">Create another</button></div>
+            <div class="output-card hidden" id="output-card"><div class="output-top"><span class="output-check">✓</span><span><strong>Your secret emoji is ready</strong><small>Encrypted on this device</small></span></div><button class="secondary-button emoji-copy" id="emoji-copy-button" type="button">▢ Copy emoji for chat</button><div class="output-actions"><button class="secondary-button" id="download-button" type="button">↓ Download PNG</button><button class="icon-button" id="copy-button" type="button" aria-label="Copy image" title="Copy image">▢</button></div><div class="field-hint copy-warning" id="copy-warning">Some chat apps may still strip hidden characters. If that happens, send the PNG as a file or document instead.</div><button class="text-button" id="reset-encode" type="button">Create another</button></div>
             <div class="privacy-note"><span class="privacy-icon">⌑</span><p><strong>Your secret stays yours.</strong> Encryption happens in your browser. Hush never receives or stores your message or password.</p></div>
           </aside>
         </div>
@@ -147,7 +147,7 @@
           <section class="guide-faq" aria-labelledby="faq-title">
             <span class="section-kicker">GOOD TO KNOW</span>
             <h3 id="faq-title">Frequently asked questions</h3>
-            <details><summary>Will every chat app preserve the hidden emoji message?</summary><p>Not always. Some apps remove invisible characters. Send a test first, or use the PNG and share it as an original file or document.</p></details>
+            <details><summary>Will every chat app preserve the hidden emoji message?</summary><p>Hush encodes the payload as Unicode Variation Selectors — the same invisible characters chat apps already need to render emoji such as ❤️. This survives Instagram, WhatsApp and Messenger. If a particular app still strips them, use the PNG and share it as an original file or document.</p></details>
             <details><summary>Does Hush change the pixels in my photo?</summary><p>The supplied-image option keeps the visible image pixels and stores the encrypted payload in a PNG metadata chunk. Recompression, screenshots, and format conversion can remove that payload.</p></details>
             <details><summary>Can Hush recover a forgotten password?</summary><p>No. The password is never sent to Hush, so it cannot be recovered. Share it with the recipient through a separate trusted channel.</p></details>
           </section>

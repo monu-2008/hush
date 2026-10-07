@@ -26,7 +26,7 @@ Ordinary chat messages expose their text to anyone who can see the conversation.
 
 ## Features
 
-- **Emoji carrier:** Copy a familiar emoji followed by invisible Unicode characters that encode the encrypted payload.
+- **Emoji carrier:** Copy a familiar emoji followed by invisible Unicode Variation Selectors (U+FE00–U+FE0F) that encode the encrypted payload. Variation Selectors are the same invisible characters chat apps already need to render emoji such as ❤️, so the payload survives Instagram, WhatsApp, Messenger and most modern chat apps.
 - **Image carrier:** Add the encrypted payload to a PNG image chunk. JPEG, WebP, and GIF inputs are converted to PNG; the first frame is used for animated GIFs.
 - **Password-based encryption:** AES-256-GCM with a key derived using PBKDF2-SHA-256 and 310,000 iterations.
 - **Client-side processing:** Message, password, and image stay in the browser; there is no application backend.
@@ -65,7 +65,7 @@ The static client is split into three main layers:
 
 ### Important limitations
 
-- Emoji carriers use zero-width Unicode characters. Some chat apps strip these characters, so test the target app before relying on it.
+- Emoji carriers use Unicode Variation Selectors (U+FE00–U+FE0F). These are the same invisible characters chat apps already require to render emoji such as ❤️, so the payload survives Instagram, WhatsApp and Messenger. Older Hush builds used zero-width characters (ZWSP/ZWNJ) which some apps stripped; the decoder still reads those legacy messages for backward compatibility. If a chat app ever strips the Variation Selectors, send the PNG as a file or document instead.
 - The PNG container preserves visible image pixels, but stores the payload in a PNG metadata chunk. It is **not pixel-level steganography**; inspection can reveal that an encrypted payload exists.
 - Messaging and social platforms may recompress images, remove metadata, or convert formats. Send the original PNG as a file or document rather than as a recompressed photo.
 - The generated emoji-like PNG is an image/sticker file, not a built-in Unicode emoji character.

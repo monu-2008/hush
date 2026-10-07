@@ -119,7 +119,7 @@ import { addPayloadToPng, decryptMessage, encryptMessage, findPayload, isSingleE
       state.outputBlob = new Blob([withPayload], { type: 'image/png' });
       state.outputName = state.source === 'emoji' ? 'hush-emoji.png' : `${safeBaseName(state.carrier.name)}-hush.png`;
       $('output-card').classList.remove('hidden'); $('output-card').querySelector('.output-top strong').textContent = state.source === 'emoji' ? 'Your secret emoji is ready' : 'Your image is ready'; $('preview-caption').textContent = state.source === 'emoji' ? 'Your secret emoji is ready.' : 'Your encrypted image is ready.';
-      setStatus('encode-status', state.source === 'emoji' ? 'Done. Copy the emoji into your chat, then share the password separately.' : 'Done. Send the PNG as a file/document to preserve its data.', true);
+      setStatus('encode-status', state.source === 'emoji' ? 'Done. Copy the emoji into your chat (Instagram, WhatsApp, Messenger), then share the password separately.' : 'Done. Send the PNG as a file/document to preserve its data.', true);
     } catch (error) {
       setStatus('encode-status', error.message || 'Something went wrong while creating the image.');
     } finally { $('encode-button').disabled = false; }
@@ -130,7 +130,7 @@ import { addPayloadToPng, decryptMessage, encryptMessage, findPayload, isSingleE
     try {
       await navigator.clipboard.writeText(state.emojiMessage);
       $('emoji-copy-button').textContent = '✓ Copied — paste into your chat';
-      setStatus('encode-status', 'Copied. Paste the complete emoji message into your chat and share the password separately.', true);
+      setStatus('encode-status', 'Copied. Paste the complete emoji message into Instagram, WhatsApp or any chat, and share the password separately.', true);
       setTimeout(() => { $('emoji-copy-button').textContent = '▢ Copy emoji for chat'; }, 2600);
     } catch { setStatus('encode-status', 'Clipboard access is unavailable. Try HTTPS or download the PNG instead.'); }
   });

@@ -73,26 +73,70 @@ export function findPayload(bytes) {
   return decoder.decode(payloadChunk.data);
 }
 
+// Variation Selectors 1–16 (U+FE00–U+FE0F) are legitimate emoji modifier
+// characters. Unlike zero-width characters (ZWSP/ZWNJ/ZWJ), they are NOT stripped
+// by Instagram, WhatsApp, Messenger, and most modern chat apps because they are
+// required for correct emoji rendering (e.g. ❤️ = U+2764 U+FE0F).
+// 16 values = 4 bits per char, so 2 VS chars encode 1 byte (high nibble + low nibble).
+const VS_BASE = 0xfe00;
+const VS_END = 0xfe0f;
+const ENVELOPE_PREFIX = '{"v":1,';
+
 export function makeEmojiMessage(emoji, serialized) {
   const data = encoder.encode(serialized);
-  let invisible = '';
+  let hidden = '';
   for (const byte of data) {
-    for (let bit = 7; bit >= 0; bit--) invisible += (byte >> bit) & 1 ? '\u200c' : '\u200b';
+    const high = (byte >> 4) & 0x0f;
+    const low = byte & 0x0f;
+    hidden += String.fromCodePoint(VS_BASE + high) + String.fromCodePoint(VS_BASE + low);
   }
-  return `${emoji}\u2063${invisible}`;
+  return `${emoji}${hidden}`;
 }
+
 export function readEmojiMessage(value) {
-  const marker = value.lastIndexOf('\u2063');
-  if (marker < 0) throw new Error('No hidden Hush data was found. Paste the whole copied emoji message.');
-  const hidden = value.slice(marker + 1).replace(/[\s\p{Z}]+$/u, '');
-  if (!hidden || hidden.length % 8 !== 0 || /[^\u200b\u200c]/u.test(hidden)) throw new Error('The hidden emoji data looks incomplete. Copy the full emoji message again.');
-  const bytes = new Uint8Array(hidden.length / 8);
-  for (let i = 0; i < bytes.length; i++) {
-    let byte = 0;
-    for (let bit = 0; bit < 8; bit++) byte = (byte << 1) | (hidden.charCodeAt(i * 8 + bit) === 0x200c ? 1 : 0);
-    bytes[i] = byte;
+  // Strategy 1: Variation Selectors (new format, Instagram-friendly).
+  // Collect all VS1–VS16 code points in order. A user-supplied emoji such as
+  // ❤️ may itself carry a leading VS16, so we try decoding from a couple of
+  // starting offsets and validate against the Hush envelope prefix.
+  const vsCodes = [];
+  for (const ch of value) {
+    const cp = ch.codePointAt(0);
+    if (cp >= VS_BASE && cp <= VS_END) vsCodes.push(cp - VS_BASE);
   }
-  try { return decoder.decode(bytes); } catch { throw new Error('The hidden emoji data is damaged.'); }
+  if (vsCodes.length >= 2) {
+    for (let offset = 0; offset < 2; offset++) {
+      const usable = vsCodes.slice(offset);
+      if (usable.length < 2 || usable.length % 2 !== 0) continue;
+      try {
+        const bytes = new Uint8Array(usable.length / 2);
+        for (let i = 0; i < bytes.length; i++) bytes[i] = (usable[i * 2] << 4) | usable[i * 2 + 1];
+        const decoded = decoder.decode(bytes);
+        if (decoded.startsWith(ENVELOPE_PREFIX)) return decoded;
+      } catch { /* try next offset, then fall through to legacy */ }
+    }
+  }
+
+  // Strategy 2: Legacy zero-width format (U+2063 marker + ZWSP/ZWNJ stream).
+  // Kept for backward compatibility with messages encoded by older Hush builds
+  // that may still arrive through apps which preserve zero-width characters.
+  const marker = value.lastIndexOf('\u2063');
+  if (marker >= 0) {
+    const hidden = value.slice(marker + 1).replace(/[\s\p{Z}]+$/u, '');
+    if (hidden && hidden.length % 8 === 0 && !/[^\u200b\u200c]/u.test(hidden)) {
+      try {
+        const bytes = new Uint8Array(hidden.length / 8);
+        for (let i = 0; i < bytes.length; i++) {
+          let byte = 0;
+          for (let bit = 0; bit < 8; bit++) byte = (byte << 1) | (hidden.charCodeAt(i * 8 + bit) === 0x200c ? 1 : 0);
+          bytes[i] = byte;
+        }
+        const decoded = decoder.decode(bytes);
+        if (decoded.startsWith(ENVELOPE_PREFIX)) return decoded;
+      } catch { /* fall through */ }
+    }
+  }
+
+  throw new Error('No hidden Hush data was found. Paste the whole copied emoji message, including any invisible characters.');
 }
 export function isSingleEmoji(value) {
   const candidate = value.trim();

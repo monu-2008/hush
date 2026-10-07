@@ -46,6 +46,35 @@ test('emoji-text carrier looks like one emoji and can be copied back to unlock',
   assert.throws(() => readEmojiMessage('😊'), /No hidden Hush data/);
 });
 
+test('emoji carrier uses Variation Selectors and survives chat-app stripping of zero-width chars', async () => {
+  const message = 'Secret for Instagram 🔒';
+  const envelope = await encryptMessage(message, 'ig-key-42');
+  const emojiText = makeEmojiMessage('🌙', envelope);
+  // New format must not contain any zero-width characters that Instagram strips.
+  assert.ok(!/\u200b|\u200c|\u200d|\u2063/u.test(emojiText), 'emoji message should not use zero-width chars');
+  // Round trip via the decoder.
+  assert.equal(await decryptMessage(readEmojiMessage(emojiText), 'ig-key-42'), message);
+});
+
+test('emoji carrier works with VS-bearing emojis like ❤️', async () => {
+  const message = 'Love letter';
+  const emojiText = makeEmojiMessage('❤️', await encryptMessage(message, 'heart-key-1'));
+  // The heart emoji already contributes a VS16; the decoder must still recover the payload.
+  assert.equal(await decryptMessage(readEmojiMessage(emojiText), 'heart-key-1'), message);
+});
+
+test('decoder still reads legacy zero-width emoji messages from older Hush builds', async () => {
+  const message = 'Old format still works';
+  const envelope = await encryptMessage(message, 'legacy-key-7');
+  const data = new TextEncoder().encode(envelope);
+  let invisible = '';
+  for (const byte of data) {
+    for (let bit = 7; bit >= 0; bit--) invisible += (byte >> bit) & 1 ? '\u200c' : '\u200b';
+  }
+  const legacyMessage = `😊\u2063${invisible}`;
+  assert.equal(await decryptMessage(readEmojiMessage(legacyMessage), 'legacy-key-7'), message);
+});
+
 test('accepts a user supplied emoji sequence as one visual emoji', () => {
   assert.equal(isSingleEmoji('😊'), true);
   assert.equal(isSingleEmoji('👨‍👩‍👧‍👦'), true);

@@ -4,8 +4,46 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#f6f7fb" />
-    <meta name="description" content="Hide an encrypted note behind an emoji or image. Your message and password stay on your device." />
-    <title>Hush — private messages in plain sight</title>
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="Encrypt a private note inside an emoji or image. Hush runs in your browser with AES-256-GCM; your message and password stay on your device." />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <link rel="canonical" href="https://hush.aqerionx.in/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Hush" />
+    <meta property="og:url" content="https://hush.aqerionx.in/" />
+    <meta property="og:title" content="Hush — Private Emoji &amp; Image Messages" />
+    <meta property="og:description" content="Send a familiar emoji or image with a hidden, encrypted note. Your message and password stay on your device." />
+    <meta property="og:image" content="https://hush.aqerionx.in/og-image.png" />
+    <meta property="og:image:secure_url" content="https://hush.aqerionx.in/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Hush by AQERIONX — say it in plain sight with encrypted emoji and image messages." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Hush — Private Emoji &amp; Image Messages" />
+    <meta name="twitter:description" content="Encrypt a private note inside an emoji or image. Your message and password stay on your device." />
+    <meta name="twitter:image" content="https://hush.aqerionx.in/og-image.png" />
+    <title>Hush — Private Emoji &amp; Image Messages | AQERIONX</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Hush",
+        "url": "https://hush.aqerionx.in/",
+        "description": "A privacy-first web application for encrypting a note and carrying it in an emoji message or PNG image.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any modern browser",
+        "browserRequirements": "JavaScript and Web Crypto API",
+        "isAccessibleForFree": true,
+        "publisher": {
+          "@type": "Organization",
+          "name": "AQERIONX"
+        }
+      }
+    </script>
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" type="module"></script>
   </head>
@@ -88,7 +126,34 @@
           <aside class="preview-column decode-aside"><div class="decode-illustration"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="decode-lock">⌑</div><span class="floating-star star-a">✳</span><span class="floating-star star-b">✦</span></div><div class="privacy-note"><span class="privacy-icon">⌑</span><p><strong>Only the right password works.</strong> Each image is encrypted with AES-GCM. Your password is never sent anywhere.</p></div></aside>
         </div>
       </section>
+      <section class="site-guide" aria-labelledby="how-it-works-title">
+        <div class="guide-heading">
+          <span class="section-kicker">PRIVATE BY DESIGN</span>
+          <h2 id="how-it-works-title">A private note, carried in plain sight.</h2>
+          <p>Hush is a browser-based tool for encrypting a message and carrying it with an emoji or an image. The note is encrypted before you copy or download the container.</p>
+        </div>
+        <div class="guide-steps">
+          <article class="guide-card"><span class="guide-number">01</span><h3>Write and encrypt</h3><p>Enter your note and a strong password. Hush uses your browser’s Web Crypto API to encrypt the note on your device.</p></article>
+          <article class="guide-card"><span class="guide-number">02</span><h3>Choose a familiar carrier</h3><p>Copy an emoji message with invisible encrypted characters, or download a PNG container. You can also use your own image as the visible carrier.</p></article>
+          <article class="guide-card"><span class="guide-number">03</span><h3>Share the password separately</h3><p>The recipient pastes the complete emoji message or uploads the original PNG, then enters the password to decrypt the note in their browser.</p></article>
+        </div>
+        <div class="guide-bottom">
+          <section class="guide-privacy" aria-labelledby="privacy-title">
+            <span class="section-kicker">YOUR DATA STAYS YOURS</span>
+            <h3 id="privacy-title">No message uploads. No account required.</h3>
+            <p>Hush is a static site. It does not send or store your message, password, or selected image on a server. The encrypted container is created locally in your browser.</p>
+          </section>
+          <section class="guide-faq" aria-labelledby="faq-title">
+            <span class="section-kicker">GOOD TO KNOW</span>
+            <h3 id="faq-title">Frequently asked questions</h3>
+            <details><summary>Will every chat app preserve the hidden emoji message?</summary><p>Not always. Some apps remove invisible characters. Send a test first, or use the PNG and share it as an original file or document.</p></details>
+            <details><summary>Does Hush change the pixels in my photo?</summary><p>The supplied-image option keeps the visible image pixels and stores the encrypted payload in a PNG metadata chunk. Recompression, screenshots, and format conversion can remove that payload.</p></details>
+            <details><summary>Can Hush recover a forgotten password?</summary><p>No. The password is never sent to Hush, so it cannot be recovered. Share it with the recipient through a separate trusted channel.</p></details>
+          </section>
+        </div>
+      </section>
       <footer class="page-footer"><span>Made for the moments that are just between you.</span><span class="footer-seal">✳ &nbsp; HUSH</span></footer>
     </main>
   </body>
 </html>
+

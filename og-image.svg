@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Hush — Say it in plain sight</title>
+  <desc id="desc">A private-message tool by AQERIONX that encrypts notes inside familiar emoji and images.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7f5ff"/><stop offset=".52" stop-color="#eeebff"/><stop offset="1" stop-color="#e8f8fb"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#37d7e5"/><stop offset=".52" stop-color="#7583ff"/><stop offset="1" stop-color="#8062ff"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="20" stdDeviation="22" flood-color="#4f428a" flood-opacity=".14"/></filter>
+  </defs>
+  <rect width="1200" height="630" rx="0" fill="url(#bg)"/>
+  <circle cx="1050" cy="70" r="240" fill="#cfc7ff" opacity=".27"/>
+  <circle cx="1120" cy="580" r="210" fill="#f3d7f2" opacity=".28"/>
+  <circle cx="90" cy="560" r="180" fill="#d2f4f3" opacity=".32"/>
+  <g transform="translate(88 80)">
+    <rect width="52" height="52" rx="17" fill="url(#accent)"/>
+    <text x="26" y="38" text-anchor="middle" font-family="Arial,sans-serif" font-size="36" font-weight="800" fill="#fff">h</text>
+    <text x="68" y="37" font-family="Arial,sans-serif" font-size="31" font-weight="800" letter-spacing="-1.5" fill="#24213b">hush.</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="810" y="162" width="278" height="306" rx="42" fill="#ffffff" fill-opacity=".78" stroke="#fff" stroke-width="3"/>
+    <circle cx="949" cy="306" r="82" fill="#fff"/>
+    <text x="949" y="337" text-anchor="middle" font-family="Arial,sans-serif" font-size="94">😊</text>
+    <rect x="882" y="403" width="134" height="34" rx="17" fill="#eeeaff"/>
+    <text x="949" y="425" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#6d57db">AES-256 ENCRYPTED</text>
+  </g>
+  <text x="90" y="242" font-family="Arial,sans-serif" font-size="17" font-weight="800" letter-spacing="4" fill="#725de1">A LITTLE PRIVACY GOES A LONG WAY</text>
+  <text x="86" y="332" font-family="Arial,sans-serif" font-size="66" font-weight="800" letter-spacing="-3" fill="#24213b">Say it in plain</text>
+  <text x="86" y="408" font-family="Arial,sans-serif" font-size="66" font-weight="800" letter-spacing="-3" fill="url(#accent)">sight.</text>
+  <text x="90" y="463" font-family="Arial,sans-serif" font-size="20" fill="#77758c">Private notes carried inside familiar emoji and images.</text>
+  <rect x="90" y="520" width="184" height="42" rx="21" fill="#fff" fill-opacity=".8" stroke="#fff"/>
+  <text x="182" y="547" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="800" letter-spacing="1.5" fill="#6d57db">POWERED BY AQERIONX</text>
+</svg>
+

@@ -1,0 +1,9 @@
+{
+  "name": "hush-private-image-messages",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "test": "node --test"
+  }
+}

@@ -1,66 +1,44 @@
-# Hush Premium PWA — Full Project Files
+# Hush — Premium Private Messages PWA
 
-## Installation
+By AQERIONX. Next.js 16 + TypeScript + Tailwind 4 + shadcn/ui + Framer Motion.
 
-1. **Setup Next.js project** (agar pehle se nahi hai):
+## Quick Start
+
 ```bash
-bun create next-app hush --typescript --tailwind --app
-cd hush
-```
-
-2. **Install dependencies**:
-```bash
-bun add qrcode jsqr framer-motion next-themes sonner lucide-react
-bun add -d @types/qrcode
-```
-
-3. **Add shadcn/ui components**:
-```bash
-bunx shadcn@latest init
-bunx shadcn@latest add button input textarea label switch select badge dialog accordion dropdown-menu tooltip progress tabs toast sonner
-```
-
-4. **Copy files** from this ZIP into your project (overwrite existing):
-```
-src/app/page.tsx
-src/app/layout.tsx
-src/app/globals.css
-src/components/theme-provider.tsx
-src/components/i18n-provider.tsx
-src/components/hush/topbar.tsx
-src/components/hush/encode-panel.tsx
-src/components/hush/decode-panel.tsx
-src/components/hush/how-it-works.tsx
-src/components/hush/stats-dialog.tsx
-src/components/hush/theme-dialog.tsx
-src/components/hush/install-banner.tsx
-src/lib/hush-core.ts
-src/lib/i18n.ts
-src/lib/qr.ts
-src/hooks/use-stats.ts
-src/hooks/use-pwa.ts
-public/manifest.webmanifest
-public/sw.js
-public/icon.svg
-public/extension/ (folder)
-public/hush-extension.zip
-```
-
-5. **Run**:
-```bash
+bun install
 bun run dev
 ```
 
 Open http://localhost:3000
 
 ## Features
-- 5 carriers: emoji (VS), PNG chunk, Pixel LSB, QR, WAV audio
-- Decoy messages, auto-expiry, burn-after-read
-- Love letter mode, time capsule
-- 4 languages (en/hi/es/ar) with RTL
-- 5 themes
-- PWA installable
-- Stats + 12 achievements
-- Chrome extension in /extension folder
+
+- **5 Carriers**: Emoji (Variation Selectors, Instagram-safe), PNG chunk, Pixel LSB, QR code, WAV audio
+- **Security**: AES-256-GCM + PBKDF2-SHA-256 (310k iterations), decoy messages, auto-expiry, burn-after-read, password hint
+- **Fun**: Love letter mode (hearts animation), Time capsule (date-locked)
+- **PWA**: Installable, offline-capable, install banner
+- **i18n**: English, Hindi, Spanish, Arabic (with RTL)
+- **Themes**: 5 premium themes (Violet, Aurora, Sunset, Rose, Ocean) + dark/light mode
+- **Stats**: Local-only activity tracking with 12 achievements
+- **Chrome Extension**: Manifest V3, files in /public/extension/
+
+## Deploy
+
+Works on Vercel, Netlify, or any Next.js host. No backend, no database.
+
+```bash
+vercel
+```
+
+## Tech Stack
+
+- Next.js 16 (App Router, Turbopack)
+- React 19
+- TypeScript 5
+- Tailwind CSS 4
+- shadcn/ui (New York)
+- Framer Motion
+- qrcode + jsqr
+- Web Crypto API
 
 By AQERIONX

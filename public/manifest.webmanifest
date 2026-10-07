@@ -1,0 +1,19 @@
+{
+  "name": "Hush — Private Messages",
+  "short_name": "Hush",
+  "description": "Encrypt a private note inside an emoji, image, QR code, or audio file.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1825",
+  "theme_color": "#7c3aed",
+  "orientation": "portrait-primary",
+  "categories": ["utilities", "productivity", "security"],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

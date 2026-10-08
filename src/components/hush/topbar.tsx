@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Moon, Sun, Palette, Globe, Download, BarChart3, Menu, X, Settings, Check } from 'lucide-react'
+import { Moon, Sun, Palette, Globe, Download, BarChart3, Menu, X, Settings, Check, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -18,8 +18,7 @@ import { LANGUAGES, type Lang } from '@/lib/i18n'
 import { usePwaInstall } from '@/hooks/use-pwa'
 
 interface TopbarProps {
-  onOpenStats: () => void
-  onOpenThemes: () => void
+  onOpenSettings: () => void
 }
 
 const THEME_OPTIONS: { code: ThemeName; emoji: string; key: string }[] = [
@@ -30,11 +29,16 @@ const THEME_OPTIONS: { code: ThemeName; emoji: string; key: string }[] = [
   { code: 'ocean', emoji: '🔵', key: 'themes.ocean' },
 ]
 
-export function Topbar({ onOpenStats, onOpenThemes }: TopbarProps) {
+export function Topbar({ onOpenSettings }: TopbarProps) {
   const { colorMode, toggleColorMode, themeName, setThemeName } = useTheme()
   const { lang, setLang, t } = useI18n()
   const { canInstall, promptInstall } = usePwaInstall()
   const [menuOpen, setMenuOpen] = useState(false)
+
+  const openFullSettings = () => {
+    setMenuOpen(false)
+    onOpenSettings()
+  }
 
   return (
     <header className="sticky top-0 z-40 w-full px-3 sm:px-4 pt-3">
@@ -114,7 +118,7 @@ export function Topbar({ onOpenStats, onOpenThemes }: TopbarProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMenuOpen(false)}
-              className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
             />
             <motion.div
               initial={{ opacity: 0, y: -20, scale: 0.96 }}
@@ -140,8 +144,8 @@ export function Topbar({ onOpenStats, onOpenThemes }: TopbarProps) {
                     {colorMode === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
                     {colorMode === 'dark' ? 'Light' : 'Dark'}
                   </Button>
-                  <Button variant="outline" size="sm" onClick={() => { onOpenStats(); setMenuOpen(false) }} className="gap-2 rounded-xl">
-                    <BarChart3 className="h-4 w-4" /> {t('nav.stats')}
+                  <Button variant="outline" size="sm" onClick={openFullSettings} className="gap-2 rounded-xl">
+                    <Settings className="h-4 w-4" /> All settings
                   </Button>
                 </div>
 
@@ -188,17 +192,23 @@ export function Topbar({ onOpenStats, onOpenThemes }: TopbarProps) {
                       </button>
                     ))}
                   </div>
-                  <button
-                    onClick={() => { onOpenThemes(); setMenuOpen(false) }}
-                    className="text-xs text-primary hover:underline mt-2"
-                  >
-                    Preview all themes →
-                  </button>
                 </div>
+
+                {/* Open full settings page */}
+                <button
+                  onClick={openFullSettings}
+                  className="w-full flex items-center justify-between rounded-xl border border-primary/20 bg-primary/5 px-3 py-2.5 text-sm font-medium text-primary hover:bg-primary/10 transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <Settings className="h-4 w-4" />
+                    Open full settings page
+                  </span>
+                  <ChevronRight className="h-4 w-4" />
+                </button>
 
                 {/* Install */}
                 {canInstall && (
-                  <Button onClick={() => { promptInstall(); setMenuOpen(false) }} size="sm" className="w-full gap-1.5 rounded-xl">
+                  <Button onClick={() => { promptInstall(); setMenuOpen(false) }} size="sm" className="w-full gap-1.5 rounded-xl mt-3">
                     <Download className="h-3.5 w-3.5" /> {t('install.title')}
                   </Button>
                 )}

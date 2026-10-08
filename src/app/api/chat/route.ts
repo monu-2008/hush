@@ -69,15 +69,15 @@ const RULES: Rule[] = [
     keywords: ['quantum', 'qubit', 'shor'],
     responses: {
       hi: [
-        '🖕 Le bhai quantum le aa. 2^256 combinations hain. Tumhara quantum ko bhi multiple universe ki life chahiye brute force karne ke liye. NSA bhi rota 🤡',
-        'Quantum computer? Bhai AES-256 ko quantum se todne ke liye Grover\'s algorithm chahiye, wo bhi 2^128 operations karta hai. Abhi tak ke quantum computers ~1000 qubits pe kaam karte hain, 2^128 ke liye 256+ million qubits chahiye. Khel khatam 🖕',
+        'Bhai sach batau — quantum computer AES-256 ko "tod" nahi sakta, but weak karna zaroor sakta hai 😏 Grover\'s algorithm se 2^256 → 2^128 ho jata hai. Abhi ke quantum computers ~1000 qubits wale hain, 2^128 ke liye 256+ million chahiye. Lekin agar password 8 char hai to quantum+classical combo faster tod sakta hai. Isliye 12+ char password use kar, password generator use kar.',
+        'Quantum computer? Bhai honestly batau — Hush "quantum safe" claim nahi karta. Quantum AES-256 ko weak karta hai (Grover\'s algo, 2^256 → 2^128), but abhi ke ~1000 qubit wale quantum se brute force still infeasible. 256+ million qubits chahiye. Lekin weak password? Quantum+classical combo tod sakta hai. So 12+ char strong password use kar.',
       ],
       en: [
-        '🖕 Bring your quantum bro. 2^256 combinations. Your quantum would need multiple universe lifetimes to brute-force. Even NSA would cry 🤡',
-        'Quantum computer? To break AES-256 you need Grover\'s algorithm, still 2^128 operations. Current quantum computers have ~1000 qubits, you need 256+ million. Game over 🖕',
+        'Bro honestly — quantum computers can\'t "break" AES-256 but they weaken it 😏 Grover\'s algorithm reduces 2^256 to 2^128. Current quantum computers have ~1000 qubits, you\'d need 256+ million for 2^128. But weak 8-char passwords? Quantum+classical could crack faster. Use 12+ char passwords, use the generator.',
+        'Quantum computer? Bro honestly — Hush doesn\'t claim "quantum safe". Quantum weakens AES-256 (Grover\'s, 2^256 → 2^128), but current ~1000 qubit machines can\'t brute force it — you need 256+ million. But weak passwords? Quantum+classical could crack. So use 12+ char strong passwords.',
       ],
-      es: ['🖕 Trae tu cuántica bro. 2^256 combinaciones. Tu cuántica necesitaría múltiples vidas universales. Hasta la NSA lloraría 🤡'],
-      ar: ['🖕 أحضر حاسوبك الكمي يا أخي. 2^256 تركيبة. حاسوبك الكمي سيحتاج عدة أعمار للكون. حتى NSA ستبكي 🤡'],
+      es: ['Bro honestamente — las computadoras cuánticas no "rompen" AES-256 pero lo debilitan 😏 Grover reduce 2^256 a 2^128. Las cuánticas actuales tienen ~1000 qubits, necesitarías 256+ millones. Pero contraseñas débiles de 8 caracteres? Cuántica+clásica podría romperlas. Usa 12+ caracteres.'],
+      ar: ['يا أخي بصراحة — الحواسيب الكمية لا "تكسر" AES-256 لكنها تضعفه 😏 خوارزمية غروفر تقلل 2^256 إلى 2^128. الحواسيب الحالية ~1000 كيوبت، تحتاج 256+ مليون. لكن كلمات المرور الضعيفة؟ الكم+الكلاسيكي يمكن كسرها. استخدم 12+ حرف.'],
     },
   },
   // Roast me

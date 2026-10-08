@@ -2,8 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Lock, Cpu, Image as ImageIcon, Smile, Binary, ShieldCheck, Flame, Languages } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
+import { Lock, Cpu, Image as ImageIcon, Smile, Binary, Flame, Languages } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Chatbot } from './chatbot'
 
@@ -15,12 +14,11 @@ type Lang = 'hi' | 'en'
 
 const HI = {
   hero: '🔐 Encryption ka khel',
-  heroSub: 'Bhai samajh le — agar ye tod sakta hota to NSA khatam ho chuka hota',
-  qBadge: 'Quantum Safe',
+  heroSub: 'Bhai samajh le — privacy ka price, password ka price',
   s1: 'AES-256-GCM kya hai bhai?',
   s1Body: 'Soch le tumhare paas ek locker hai. Uska key 256 bits ka hai. 256 bits matlab 2²⁵⁶ combinations. Bhai itne combinations hain ki agar tum 1000 supercomputers lekar brute force karo, to universe ki life khatam ho jayegi 🔥 password nahi tutega. Banks bhi yahi use karte hain. Tumhara Instagram password se zyada strong.',
-  s2: 'Emoji me kaise chhupta hai? 🖕',
-  s2Body: 'Tumhara encrypted payload lambi string hai. Hum har byte ko 2 "Variation Selector" (U+FE00–U+FE0F) characters me convert karte hain. Ye invisible hote hain par Instagram, WhatsApp inhe preserve karte hain kyunki ❤️ bhi isi ko use karta hai. To bhai message bhejo, dosto ko sirf emoji dikhega. Andar poora encrypted payload chhupa hua hai. Quantum computer lekar aao 🖕 — khel khatam.',
+  s2: 'Emoji me kaise chhupta hai?',
+  s2Body: 'Tumhara encrypted payload lambi string hai. Hum har byte ko 2 "Variation Selector" (U+FE00–U+FE0F) characters me convert karte hain. Ye invisible hote hain par Instagram, WhatsApp inhe preserve karte hain kyunki ❤️ bhi isi ko use karta hai. To bhai message bhejo, dosto ko sirf emoji dikhega. Andar poora encrypted payload chhupa hua hai.',
   s2Code: '// Emoji carrier — payload ko invisible Variation Selectors me chhupta hai',
   s3: 'Image (PNG) me kaise?',
   s3Body: 'PNG me "huSH" naam ka custom chunk daal dete hain. Image bilkul same dikhti hai — pixel ek bhi change nahi hota. Andar encrypted payload metadata chunk me hai. Recipient image upload karega, password daalega, message khul jayega.',
@@ -28,23 +26,22 @@ const HI = {
   s4: 'Pixel LSB (asli steganography)',
   s4Body: 'LSB = Least Significant Bit. Har pixel ke RGB channel ka sabse chhota bit change karte hain. Human eye se difference nahi dikhta. Bhai true spy shit 🕵️. Lekin dhyan rakh — JPEG conversion, screenshots se payload kharab ho sakta hai. PNG file hi bhejo.',
   s4Code: '// Pixel LSB — har byte ko pixel ke LSB me chhupta hai',
-  s5: 'Quantum threat roast 🖕',
-  s5Body: 'Bhai agar koi tumhara message dekhna chahe... quantum computer lekar bhi aa jaye... 🤫 khel khatam hai. 2²⁵⁶ combinations ko brute force karne ke liye quantum ko bhi multiple universe ki life chahiye. Tumhara ex bhi nahi padh paayega. NSA bhi nahi. Khuda bhi nahi (joke). Middle finger quantum ko. 🖕',
+  s5: 'Quantum computer ka sach 🖕',
+  s5Body: 'Bhai honestly batau — quantum computer AES-256 ko "tod" nahi sakta, but weak karna zaroor sakta hai. Grover\'s algorithm se 2²⁵⁶ combinations 2¹²⁸ ho jate hain. 2¹²⁸ bhi itna bada hai ki abhi ke quantum computers (~1000 qubits) se brute force impossible hai — 256+ million qubits chahiye. Lekin agar tumhara password 8 char ka hai, to quantum+classical combo usse faster tod sakta hai. Isliye 12+ char password use kar, password generator use kar, aur shaant raho. Hush "quantum safe" claim nahi karta — hum sirf itna bolte hain ki "abhi ke technology se practically infeasible".',
   codeTitle: 'Asli Code 👇',
   chatTitle: '🤖 Sawal puchh — main roast karunga',
-  chatSub: 'Bhai kuch bhi puchho. Encryption, password, Instagram, quantum — sab kuch. Bas "roast me" mat likhna agar sentiment soft hai 😏',
+  chatSub: 'Bhai kuch bhi puchho. Encryption, password, Instagram — sab kuch. Bas "roast me" mat likhna agar sentiment soft hai 😏',
   engBtn: 'English',
   engToggle: 'Aur bhai — English version bhi chahta hai?',
 }
 
 const EN = {
   hero: '🔐 The Encryption Game',
-  heroSub: "Bro, understand — if this could be cracked, NSA would be history",
-  qBadge: 'Quantum Safe',
+  heroSub: 'Bro, understand — privacy has a price, password has a price',
   s1: 'What is AES-256-GCM?',
   s1Body: 'Imagine a locker. The key is 256 bits long. That\'s 2²⁵⁶ combinations. So many that even with 1000 supercomputers brute-forcing, the universe would end before the password breaks. Banks use this. Stronger than your Instagram password.',
-  s2: 'How does it hide in emoji? 🖕',
-  s2Body: 'Your encrypted payload is a long string. We convert each byte into 2 "Variation Selector" characters (U+FE00–U+FE0F). They\'re invisible but Instagram, WhatsApp preserve them because ❤️ also uses them. Send the message, friends only see the emoji. The full encrypted payload is hidden inside. Bring a quantum computer 🖕 — game over.',
+  s2: 'How does it hide in emoji?',
+  s2Body: 'Your encrypted payload is a long string. We convert each byte into 2 "Variation Selector" characters (U+FE00–U+FE0F). They\'re invisible but Instagram, WhatsApp preserve them because ❤️ also uses them. Send the message, friends only see the emoji. The full encrypted payload is hidden inside.',
   s2Code: '// Emoji carrier — payload hides in invisible Variation Selectors',
   s3: 'How does it hide in images?',
   s3Body: 'We inject a custom "huSH" chunk into the PNG. The image looks identical — not a single pixel changes. The encrypted payload sits in a metadata chunk inside. Recipient uploads the image, enters the password, message unlocks.',
@@ -52,11 +49,11 @@ const EN = {
   s4: 'Pixel LSB (true steganography)',
   s4Body: 'LSB = Least Significant Bit. We modify the smallest bit of each pixel\'s RGB channels. Human eye can\'t tell the difference. True spy stuff 🕵️. But beware — JPEG conversion, screenshots can break the payload. Send PNG only.',
   s4Code: '// Pixel LSB — each byte hides in pixel LSBs',
-  s5: 'Quantum threat roast 🖕',
-  s5Body: 'Bro if someone wants to read your message... brings a quantum computer... 🤫 game over. 2²⁵⁶ combinations would need multiple universe lifetimes to brute-force. Your ex can\'t read it. NSA can\'t. God can\'t (joke). Middle finger to quantum. 🖕',
+  s5: 'The quantum truth 🖕',
+  s5Body: 'Bro honestly — quantum computers can\'t "break" AES-256, but they can weaken it. Grover\'s algorithm reduces 2²⁵⁶ combinations to 2¹²⁸. 2¹²⁸ is still so large that current quantum computers (~1000 qubits) can\'t brute force it — you\'d need 256+ million qubits. But if your password is 8 chars, a quantum+classical combo could crack it faster. So use 12+ char passwords, use the password generator, and chill. Hush doesn\'t claim "quantum safe" — we just say "practically infeasible with current tech".',
   codeTitle: 'Real Code 👇',
   chatTitle: '🤖 Ask me anything — I\'ll roast',
-  chatSub: 'Bro ask anything. Encryption, passwords, Instagram, quantum — everything. Just don\'t type "roast me" if your sentiment is soft 😏',
+  chatSub: 'Bro ask anything. Encryption, passwords, Instagram — everything. Just don\'t type "roast me" if your sentiment is soft 😏',
   engBtn: 'Hinglish',
   engToggle: 'Want the Hinglish version?',
 }
@@ -174,9 +171,6 @@ export function EncryptionView({ lang }: EncryptionViewProps) {
         className="text-center"
       >
         <div className="inline-flex items-center gap-2 mb-4">
-          <Badge variant="secondary" className="gap-1.5 bg-primary/10 text-primary border-primary/20">
-            <ShieldCheck className="h-3 w-3" /> {t.qBadge}
-          </Badge>
           <Button
             variant="outline"
             size="sm"
@@ -228,19 +222,20 @@ export function EncryptionView({ lang }: EncryptionViewProps) {
         </div>
       </Section>
 
-      {/* Section 5 — Quantum roast */}
+      {/* Section 5 — Quantum honest */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ delay: 0.2, type: 'spring', stiffness: 100 }}
-        className="rounded-2xl p-6 sm:p-10 text-center bg-gradient-to-br from-primary/10 via-accent/20 to-primary/5 border border-primary/20 glow-ring"
+        className="glass rounded-2xl p-6 sm:p-8 border-amber-500/30"
       >
-        <div className="text-6xl mb-4">🖕</div>
-        <h2 className="text-2xl sm:text-3xl font-bold mb-3 flex items-center justify-center gap-2">
-          <Flame className="h-6 w-6 text-primary" />
-          {t.s5}
-        </h2>
+        <div className="flex items-center gap-3 mb-4">
+          <div className="grid h-10 w-10 place-items-center rounded-xl bg-amber-500/10 text-amber-500">
+            <Flame className="h-5 w-5" />
+          </div>
+          <h2 className="text-xl sm:text-2xl font-bold">{t.s5}</h2>
+        </div>
         <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">{t.s5Body}</p>
       </motion.section>
 

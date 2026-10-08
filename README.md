@@ -1,22 +1,43 @@
-# Vercel 404 Fix
+# Hush v2 Update — Files to add
 
-## Problem
-Vercel pe 404 aa raha tha kyunki:
-1. `next.config.ts` me `output: "standalone"` tha — Vercel ke liye nahi chahiye
-2. `package.json` me self-hosting wala build script tha
+## What's new in v2
 
-## Fix
-1. `next.config.ts` ko is file se replace kar (output: standalone hata diya)
-2. `package.json` ko is file se replace kar (simple build script)
-3. Delete `bun.lock` (Vercel npm use karega)
-4. Commit + push
+1. **4 pills** — Encode | Decode | Encryption | Settings
+2. **Encryption page** — Hinglish savage roast + actual code snippets + English toggle
+3. **AI Chatbot** — Savage roast, 4 languages, "roast me" easter egg
+4. **Settings page** — Theme picker, language, dark/light, stats, install, about, social links
+5. **New Footer** — Gradient AQERIONX (→ aqerionx.in), Instagram + GitHub pill buttons
+6. **Enhanced Aurora background** — 4 blobs, smoother animation, mix-blend-mode
 
-## Commands
+## Files to add/update
+
+### New files (add kar)
+- `src/app/api/chat/route.ts` — AI chatbot backend
+- `src/components/hush/encryption-view.tsx` — Encryption explanation page
+- `src/components/hush/settings-view.tsx` — Settings page
+- `src/components/hush/chatbot.tsx` — Chatbot frontend widget
+- `src/components/hush/footer.tsx` — New footer
+
+### Modified files (overwrite kar)
+- `src/app/page.tsx` — 4-pill tab system
+- `src/app/globals.css` — Aurora background enhance
+
+## After paste — verify
+
 ```bash
-rm bun.lock
+bun run dev
+# http://localhost:3000 khol
+# Try: Encryption tab → Hinglish toggle → Chatbot → "roast me"
+# Try: Settings tab → theme/lang switch
+# Try: Encode → Decode (purana flow still works)
+```
+
+## Push kar
+
+```bash
 git add -A
-git commit -m "fix: Vercel build — remove standalone output, simplify build script"
+git commit -m "feat: v2 — encryption page, AI chatbot, settings page, new footer, aurora bg"
 git push origin main
 ```
 
-5 min wait kar, Vercel auto-redeploy hoga. Site live ho jayegi.
+Vercel auto-deploy hoga. 2-3 min me live.

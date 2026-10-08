@@ -121,7 +121,7 @@
   }
 }
 
-/* ===== Premium animated gradient mesh background ===== */
+/* ===== Premium animated aurora background ===== */
 .mesh-bg {
   position: fixed;
   inset: 0;
@@ -133,20 +133,43 @@
 .mesh-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.35;
-  animation: meshFloat 28s ease-in-out infinite;
+  filter: blur(100px);
+  opacity: 0.4;
+  animation: auroraFloat 32s ease-in-out infinite;
   will-change: transform;
+  mix-blend-mode: screen;
 }
-.mesh-blob.b1 { width: 480px; height: 480px; background: radial-gradient(circle, oklch(0.6 0.25 295 / 0.55), transparent 70%); top: -200px; left: -160px; }
-.mesh-blob.b2 { width: 520px; height: 520px; background: radial-gradient(circle, oklch(0.65 0.22 195 / 0.5), transparent 70%); top: -160px; right: -180px; animation-delay: -9s; }
-.mesh-blob.b3 { width: 380px; height: 380px; background: radial-gradient(circle, oklch(0.7 0.2 350 / 0.4), transparent 70%); bottom: -160px; left: 30%; animation-delay: -18s; }
-.dark .mesh-blob { opacity: 0.28; }
+.dark .mesh-blob { opacity: 0.32; mix-blend-mode: screen; }
 
-@keyframes meshFloat {
-  0%, 100% { transform: translate(0,0) scale(1); }
-  33% { transform: translate(40px, -30px) scale(1.08); }
-  66% { transform: translate(-30px, 40px) scale(0.95); }
+.mesh-blob.b1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, oklch(0.6 0.25 295 / 0.7), transparent 70%);
+  top: -200px; left: -200px;
+}
+.mesh-blob.b2 {
+  width: 680px; height: 680px;
+  background: radial-gradient(circle, oklch(0.65 0.22 195 / 0.6), transparent 70%);
+  top: -150px; right: -220px;
+  animation-delay: -8s;
+}
+.mesh-blob.b3 {
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, oklch(0.7 0.22 350 / 0.55), transparent 70%);
+  bottom: -180px; left: 25%;
+  animation-delay: -16s;
+}
+.mesh-blob.b4 {
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, oklch(0.75 0.2 75 / 0.45), transparent 70%);
+  bottom: -100px; right: 20%;
+  animation-delay: -24s;
+}
+
+@keyframes auroraFloat {
+  0%, 100% { transform: translate(0,0) scale(1) rotate(0deg); }
+  25% { transform: translate(50px, -40px) scale(1.1) rotate(2deg); }
+  50% { transform: translate(-30px, 60px) scale(0.92) rotate(-2deg); }
+  75% { transform: translate(40px, 30px) scale(1.05) rotate(1deg); }
 }
 
 /* Subtle film-grain noise overlay */
